@@ -96,26 +96,30 @@
 		tabindex="0"
 		style={nestNumber > 0 ? `padding-left: ${padding}` : ''}
 	>
-		<div class="flex flex-row items-center gap-1">
-			<div
-				class="cursor-pointer transition-transform"
-				class:rotate-90={isOpen}
-				on:click|preventDefault={handleClick}
-				on:keypress|preventDefault={handleClick}
-				tabindex="0"
-				role="button"
-			>
-				<ChevronRight class="h-3 w-3" />
-			</div>
-			{#if node.group?.name === ''}
-				<span class="text-sm font-medium text-slate-600">Untitled</span>
-			{:else}
-				<span
-					class:text-slate-900={isActive}
-					class="text-sm font-medium text-slate-400">{node.group?.name}</span
-				>
-			{/if}
-		</div>
+<div class="flex flex-row items-center gap-1">
+  <!-- Chevron is only shown if the group has children -->
+  {#if node.children.length > 0}
+    <div
+      class="cursor-pointer transition-transform"
+      class:rotate-90={isOpen}
+      on:click|preventDefault={handleClick}
+      tabindex="0"
+      role="button"
+    >
+      <ChevronRight class="h-3 w-3" />
+    </div>
+  {/if}
+
+  <!-- Group Name -->
+  {#if node.group?.name === ''}
+    <span class="text-sm font-medium text-slate-600">Untitled</span>
+  {:else}
+    <span
+      class:text-slate-900={isActive}
+      class="text-sm font-medium text-slate-400">{node.group?.name}</span
+    >
+  {/if}
+</div>
 		<div class="flex flex-row">
 			{#if showButtons}
 				<CommandsDropdown {commands} bind:open>
