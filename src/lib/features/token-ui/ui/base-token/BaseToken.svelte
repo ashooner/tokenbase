@@ -1,5 +1,6 @@
 <script lang="ts">
 	import detachTokenValueInstance from '$lib/utils/detachTokenValueInstance'
+	import { deriveTokenFullName } from '$lib/utils/deriveTokenFullName';
 	import TokenAliasControler from '$lib/features/aliases/components/token-alias-controler/TokenAliasControler.svelte'
 	import type {
 		IToken,
@@ -35,6 +36,8 @@
 		selectedTokensStore && $selectedTokensStore
 			? $selectedTokensStore.includes(token.id)
 			: false
+
+	$: fullName = deriveTokenFullName(activeGroupId, token.name, $groupsStore);	
 
 	const handleTokenTypeChange = (tokenType: TokenType) => {
 		if (!isAlias) {
@@ -108,9 +111,11 @@
 		/>
 	</Table.Cell>
 	<Table.Cell class="pr-0">
+		
 		{#if viewMode}
 			<p class="h-7 w-40 border-none px-1 py-1 pr-6 text-sm font-medium">
 				{token.name}
+				
 			</p>
 		{:else}
 			<Input
@@ -122,6 +127,7 @@
 				on:focusout={handleUnselectNameInput}
 			/>
 		{/if}
+		<span class="text-xs text-slate-500">{fullName}</span>
 	</Table.Cell>
 	<Table.Cell>
 		<div class="flex flex-row items-center gap-1">
