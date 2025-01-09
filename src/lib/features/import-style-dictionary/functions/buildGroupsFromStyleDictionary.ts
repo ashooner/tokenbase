@@ -24,8 +24,6 @@ const buildStyleDictionaryNode = (
 	// y los transforma en un array de grupos y tokens que es lo que utilizamos
 	// internamente en nuestra aplicación
 
-	console.log('styleDictionaryGroup', styleDictionaryGroup)
-
 	// PASO 1: Chequeamos que el styleDictionaryGroup sea un objeto valido
 	if (typeof styleDictionaryGroup !== 'object') {
 		throw new Error('Invalid style dictionary group')
@@ -124,7 +122,6 @@ const buildStyleDictionaryNode = (
 			})
 		})
 	}
-
 	return groups
 }
 
@@ -142,6 +139,7 @@ const styleDictionaryToGroups = (
 			designSystemId
 		)
 	} catch (error) {
+		console.log('error', styleDictionary, error)
 		return null
 	}
 }
